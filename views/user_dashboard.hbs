@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap');
+    * {
+        margin: 0;
+    }
+    body {
+        background-color: #000000;
+        font-family: 'Cormorant Garamond', serif;
+        padding-top: 65px; /* Add padding equal to navbar height */
+    }
+   .head {
+        display: flex;
+        height: 5vh;
+        background-color: rgba(0, 0, 0, 0.8); /* Transparent background */
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: fixed; /* Fixed position */
+        top: 0;
+        width: 100%;
+        z-index: 1000; /* Ensure navbar stays on top */
+        backdrop-filter: blur(5px); /* Optional: adds blur effect behind navbar */
+   }
+   .user {
+        height: 40px;
+        width: 120px;
+        position: absolute;
+        right: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: x-large;
+        cursor: pointer;
+        color: #ffffff;
+   }
+   .menu {
+        display: flex;
+        color: aliceblue;
+        gap: 20px;
+        list-style: none;
+        font-size: large;
+   }
+   li {
+        text-decoration: none;
+   }
+   a {
+        text-decoration: none;
+        color: white;
+   }
+   .sec1 {
+        box-sizing: border-box;
+        display: flex;
+        height: 70vh;
+        background-image: url('/images/food2.jpg');
+        padding-left: 30PX;
+        padding-top: 90px;
+        color: aliceblue;
+        background-size: cover;
+        font-size: 40px;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+   }
+   .sec_view {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 30px;
+        gap: 70px;
+        height: 90VH;
+        
+   }
+   .sec2 {
+        display: flex;
+        background-color: #000000;
+        height: 50vh;
+        width: 45vw;
+        box-sizing: border-box;
+        border-radius: 20px;
+        color: white;
+        padding: 60px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid white;
+   }
+   .sec3 {
+        display: flex;
+        background-color: #000000;
+        height: 50vh;
+        width: 45vw;
+        box-sizing: border-box;
+        border-radius: 20px;
+        color: white;
+        padding: 60px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid white;
+   }
+   
+   /* Cart icon and counter styles */
+   .cart-container {
+        position: absolute;
+        right: 180px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+   }
+   
+   .cart-counter {
+        background-color: #ff6200;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        position: absolute;
+        top: -8px;
+        right: -8px;
+   }
+   
+   /* Cart dropdown styles */
+   .cart-dropdown {
+        display: none;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        background-color: #111;
+        min-width: 300px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        z-index: 1001;
+        border-radius: 5px;
+        padding: 15px;
+        color: white;
+   }
+   
+   .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #333;
+   }
+   
+   .cart-item-name {
+        flex: 1;
+   }
+   
+   .cart-item-quantity {
+        display: flex;
+        align-items: center;
+   }
+   
+   .qty-btn {
+        background-color: #333;
+        color: white;
+        border: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 0 5px;
+   }
+   
+   .cart-item-price {
+        width: 70px;
+        text-align: right;
+   }
+   
+   .cart-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #333;
+        font-weight: bold;
+   }
+   
+   .checkout-btn {
+        background-color: #ff6200;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 15px;
+        cursor: pointer;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 16px;
+        font-weight: bold;
+   }
+   
+   .checkout-btn:hover {
+        background-color: #ff7f2a;
+   }
+   
+   .empty-cart-msg {
+        text-align: center;
+        padding: 20px;
+   }
+   
+   /* Media query for responsive design */
+   @media (max-width: 768px) {
+       .sec_view {
+           flex-direction: column;
+       }
+       .sec2, .sec3 {
+           width: 90vw;
+       }
+       .cart-dropdown {
+           width: 90vw;
+           right: -45vw;
+       }
+   }
+   /* Reuse your .modal styles if you have them; otherwise: */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #111;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 300px;
+  width: 80%;
+  text-align: center;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #aaa;
+}
+.close-modal:hover {
+  color: #fff;
+}
+
+</style>
+<body>
+    <header>
+        <nav class="head">
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="#" id="requestWaiter">waiter</a></li>
+
+            </ul>
+            <a class="user" href="/profile">{{user.name}}</a>
+            <div class="cart-container" onclick="toggleCart()">
+                <i class="fa fa-shopping-cart" style="font-size: 28px; color: white;"></i>
+                <span class="cart-counter">0</span>
+                
+                <!-- Cart Dropdown -->
+                <div class="cart-dropdown" id="cartDropdown">
+                    <div id="cartItems">
+                        <!-- Cart items will be added here dynamically -->
+                    </div>
+                    <div class="cart-total" id="cartTotal">
+                        <span>Total:</span>
+                        <span>$0.00</span>
+                    </div>
+                    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="sec1">
+        <h1>FooDelicious <br> </h1>
+    </div>
+    <div class="sec_view">
+        <div class="sec2">
+            <h1>"Contact less ordering "<br></h1>
+        </div>
+        <div class="sec3">
+            <h1>"No more waiting for <br>the waiters to order food"</h1>
+        </div>
+    </div>
+    <!-- Waiter Request Modal -->
+<div id="waiterModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeWaiterModal">&times;</span>
+    <p style="font-size: 30px; text-align: center; margin-top: 10px; color:white">
+      A waiter will be on your table shortly.
+    </p>
+  </div>
+</div>
+
+    <script>
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+        });
+        
+        // Toggle cart dropdown
+        function toggleCart() {
+            const dropdown = document.getElementById('cartDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            
+            // Update cart items when opening
+            if (dropdown.style.display === 'block') {
+                updateCartDisplay();
+            }
+        }
+        
+        // Close cart when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.fa-shopping-cart') && 
+                !event.target.matches('.cart-counter') &&
+                !document.getElementById('cartDropdown').contains(event.target)) {
+                document.getElementById('cartDropdown').style.display = 'none';
+            }
+        });
+        
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCounter = document.querySelector('.cart-counter');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // Get cart from localStorage
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Update counter
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCounter.textContent = totalItems;
+            
+            // Clear current cart items
+            cartItems.innerHTML = '';
+            
+            // If cart is empty
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart-msg">Your cart is empty</div>';
+                cartTotal.innerHTML = '<span>Total:</span><span>$0.00</span>';
+                return;
+            }
+            
+            // Calculate total
+            let total = 0;
+            
+            // Add items to cart
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-quantity">
+                        <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                    </div>
+                    <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            // Update total
+            cartTotal.innerHTML = `<span>Total:</span><span>$${total.toFixed(2)}</span>`;
+        }
+        
+        // Update item quantity
+        function updateQuantity(index, change) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Update quantity
+            cart[index].quantity += change;
+            
+            // Remove item if quantity is 0 or less
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            
+            // Save cart
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update display
+            updateCartDisplay();
+        }
+        
+        // Checkout function
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Here you would typically redirect to a checkout page
+            // For this example, we'll just show an alert
+            alert('Proceeding to checkout!');
+            
+            // You can add a redirect here
+            // window.location.href = '/checkout';
+        }
+        // Get references
+const waiterModal = document.getElementById('waiterModal');
+const closeWaiterBtn = document.getElementById('closeWaiterModal');
+const waiterLink = document.getElementById('requestWaiter');
+
+// Open modal on click
+waiterLink.addEventListener('click', function(e) {
+  e.preventDefault();
+  waiterModal.style.display = 'flex';
+});
+
+// Close modal when X is clicked
+closeWaiterBtn.addEventListener('click', function() {
+  waiterModal.style.display = 'none';
+});
+
+// Close modal when clicking outside the content
+window.addEventListener('click', function(e) {
+  if (e.target === waiterModal) {
+    waiterModal.style.display = 'none';
+  }
+});
+
+    </script>
+
+</body>
+</html>

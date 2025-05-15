@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${APP_NAME:-chatapp}:v${APP_VERSION:-latest}
+    container_name: ${APP_NAME:-chatapp_ci}
+    ports:
+      - "3001:3000"  # Ensure port 3001 is available on your host machine
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  app-network:
+    driver: bridge
+ 

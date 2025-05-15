@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>login</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap');
+    body {
+      padding: 0;
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .main {
+      display: flex;
+    }
+
+    .left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50vw;
+      height: 100vh;
+      box-sizing: border-box;
+      background-image: url('/images/food21.jpg');
+      background-size: cover;
+      font-size: 50px;
+      font-weight: bolder;
+      color: rgb(255, 255, 255);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .right {
+      width: 50vw;
+      height: 100vh;
+      box-sizing: border-box;
+      background:black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .right::before {
+      content: "";
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle, rgba(40, 40, 40, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+      top: -25%;
+      left: -25%;
+      animation: pulse 15s infinite alternate;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .login {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(30, 30, 30, 0.7);
+      height: auto;
+      min-height: 50%;
+      width: 350px;
+      border-radius: 15px;
+      color: rgb(240, 240, 240);
+      padding: 40px 25px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(70, 70, 70, 0.2);
+      z-index: 10;
+    }
+    
+    .login h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-top: 25px;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="submit"] {
+      padding: 14px;
+      font-size: 16px;
+      width: 85%;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+    
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(120, 120, 120, 0.6);
+      transform: translateY(-2px);
+    }
+
+    input[type="submit"] {
+      background: linear-gradient(135deg, #333333, #1a1a1a);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+      background: linear-gradient(135deg, #444444, #2a2a2a);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .register-link {
+      margin-top: 25px;
+      color: rgb(210, 210, 210);
+      font-size: 16px;
+    }
+    
+    .register-link a {
+      color: #a0a0a0;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .register-link a:hover {
+      text-decoration: underline;
+      color: #ffffff;
+    }
+    
+    @media (max-width: 900px) {
+      .main {
+        flex-direction: column;
+      }
+      .left, .right {
+        width: 100vw;
+        height: 50vh;
+      }
+      .left {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="left">
+      <h1>Welcome <br />To <br /> FooDelicious</h1>
+    </div>
+    <div class="right">
+      <div class="login">
+        <h1>Login</h1>
+        <form class="form" action="/login" method="POST">
+          <input type="email" placeholder="Email" name="email" required/>
+          <input type="password" placeholder="Password" name="password" required/>
+          <input type="submit" value="LOGIN" name="submit" />
+        </form>
+        <div class="register-link">
+          Don't have an account? <a href="/signup">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

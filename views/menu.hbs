@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap');
+    *{
+        margin: 0;
+    }
+    body{
+        background-color: #000000;
+        font-family: 'Cormorant Garamond', serif;
+       
+    }
+  .head {
+        display: flex;
+        height: 5vh;
+        background-color: rgba(0, 0, 0, 0.8); /* Transparent background */
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: fixed; /* Fixed position */
+        top: 0;
+        width: 100%;
+        z-index: 1000; /* Ensure navbar stays on top */
+        backdrop-filter: blur(5px); /* Optional: adds blur effect behind navbar */
+   }
+   
+  .user {
+        height: 40px;
+        width: 120px;
+        position: absolute;
+        right: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: x-large;
+        cursor: pointer;
+        color: #ffffff;
+   }
+   .login_btn{
+    background-color: white;
+    height: 40px;
+    width: 120px;
+    border-radius: 8dp;
+    position: absolute;
+    right: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+
+    
+   }
+   .menu{
+    display: flex;
+    color: aliceblue;
+    gap: 20px;
+    list-style: none;
+    font-size: large;
+   
+
+    
+   }
+   li{
+    
+    text-decoration: none;
+  
+   }
+   a{
+    text-decoration: none;
+    color: white;
+   }
+   .OurMenu{
+    background-image: url('/images/food3.jpg');
+    background-size: cover;
+    color: white;
+    font-size: xx-large;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+   
+   /* Menu item styles - removed hover transform */
+   .menu-container {
+    padding: 40px;
+    color: white;
+    max-width: 1200px;
+    margin: 0 auto;
+   }
+   
+   .category-heading {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
+    color: #ffffff;
+    font-size: 36px;
+   }
+   
+   .menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+   }
+   
+   .menu-item {
+    background-color: #111;
+    border-radius: 10px;
+    padding: 20px;
+    width: calc(33.33% - 20px);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    position: relative;
+   }
+   
+   @media (max-width: 992px) {
+    .menu-item {
+      width: calc(50% - 15px);
+    }
+   }
+   
+   @media (max-width: 576px) {
+    .menu-item {
+      width: 100%;
+    }
+   }
+   
+   .menu-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #ffffff;
+   }
+   
+   .menu-item p {
+    color: #aaa;
+    margin-bottom: 15px;
+   }
+   
+   .menu-item .price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 15px;
+   }
+   
+   .special-item {
+    background-color: #1a1a00;
+    border: 1px solid #333300;
+   }
+   
+   .vegetarian-badge {
+    background-color: #4caf50;
+    color: white;
+    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-left: 10px;
+   }
+   
+   /* Add to Cart Button styles */
+   .add-to-cart-btn {
+    background-color: #ff6200;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+   }
+   
+   .add-to-cart-btn:hover {
+    background-color: #ff7f2a;
+   }
+   
+   /* Cart container and counter styles */
+   .cart-container {
+        position: absolute;
+        right: 180px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+   }
+   
+   .cart-counter {
+        background-color: #ff6200;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        position: absolute;
+        top: -8px;
+        right: -8px;
+   }
+   
+   /* Cart dropdown styles */
+   .cart-dropdown {
+        display: none;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        background-color: #111;
+        min-width: 300px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        z-index: 1001;
+        border-radius: 5px;
+        padding: 15px;
+        color: white;
+   }
+   
+   .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #333;
+   }
+   
+   .cart-item-name {
+        flex: 1;
+   }
+   
+   .cart-item-quantity {
+        display: flex;
+        align-items: center;
+   }
+   
+   .qty-btn {
+        background-color: #333;
+        color: white;
+        border: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 0 5px;
+   }
+   
+   .cart-item-price {
+        width: 70px;
+        text-align: right;
+   }
+   
+   .cart-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #333;
+        font-weight: bold;
+   }
+   
+   .checkout-btn {
+        background-color: #ff6200;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 15px;
+        cursor: pointer;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 16px;
+        font-weight: bold;
+   }
+   
+   .checkout-btn:hover {
+        background-color: #ff7f2a;
+   }
+   
+   .empty-cart-msg {
+        text-align: center;
+        padding: 20px;
+   }
+
+   /* Table Selection Popup Styles */
+   .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+   }
+   
+   .popup-content {
+        background-color: #111;
+        padding: 30px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        color: white;
+        position: relative;
+   }
+   
+   .popup-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #aaa;
+   }
+   
+   .popup-close:hover {
+        color: white;
+   }
+   
+   .popup-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #ffffff;
+   }
+   
+   .table-selection {
+        margin: 20px 0;
+   }
+   
+   .table-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+   }
+   
+   .table-option {
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-family: 'Cormorant Garamond', serif;
+   }
+   
+   .table-option:hover {
+        background-color: #444;
+   }
+   
+   .table-option.selected {
+        background-color: #ff6200;
+   }
+   
+   .custom-table-input {
+        display: flex;
+        margin-top: 15px;
+        align-items: center;
+   }
+   
+   .custom-table-input input {
+        flex: 1;
+        padding: 10px;
+        background-color: #333;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        margin-right: 10px;
+        font-family: 'Cormorant Garamond', serif;
+   }
+   
+   .confirm-btn {
+        background-color: #ff6200;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 20px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Cormorant Garamond', serif;
+   }
+   
+   .confirm-btn:hover {
+        background-color: #ff7f2a;
+   }
+   
+   .confirm-btn:disabled {
+        background-color: #666;
+        cursor: not-allowed;
+   }
+</style>
+<body>
+    <header>
+        <nav class="head">
+            <ul class="menu">
+                <li><a href="/user_dashboard" >Home</a> </li>
+                <li><a href="#" >Menu</a> </li>
+            </ul>
+            <div class="cart-container" onclick="toggleCart()">
+                <i class="fa fa-shopping-cart" style="font-size: 28px; color: white;"></i>
+                <span class="cart-counter">0</span>
+                
+                <!-- Cart Dropdown -->
+                <div class="cart-dropdown" id="cartDropdown">
+                    <div id="cartItems">
+                        <!-- Cart items will be added here dynamically -->
+                    </div>
+                    <div class="cart-total" id="cartTotal">
+                        <span>Total:</span>
+                        <span>$0.00</span>
+                    </div>
+                    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+                </div>
+            </div>
+            <a class="user" href="/profile">{{user.name}}</a>
+        </nav>
+    </header>
+    
+    <div class="OurMenu">
+        <h1>Our Menu</h1>
+    </div>
+    
+    <div class="menu-container">
+        {{#if hasItems}}
+            <!-- Appetizers Section -->
+            {{#if categorizedMenu.appetizer.length}}
+            <section id="appetizers">
+                <h2 class="category-heading">Appetizers</h2>
+                <div class="menu-items">
+                    {{#each categorizedMenu.appetizer}}
+                        <div class="menu-item {{#if isSpecial}}special-item{{/if}}">
+                            <h3>{{name}} {{#if isVegetarian}}<span class="vegetarian-badge">Veg</span>{{/if}}</h3>
+                            <p>{{description}}</p>
+                            <p class="price">${{price}}</p>
+                            <button class="add-to-cart-btn" onclick="addToCart('{{_id}}', '{{name}}', {{price}})">Add to Cart</button>
+                        </div>
+                    {{/each}}
+                </div>
+            </section>
+            {{/if}}
+            
+            <!-- Main Courses Section -->
+            {{#if categorizedMenu.main.length}}
+            <section id="mains">
+                <h2 class="category-heading">Main Courses</h2>
+                <div class="menu-items">
+                    {{#each categorizedMenu.main}}
+                        <div class="menu-item {{#if isSpecial}}special-item{{/if}}">
+                            <h3>{{name}} {{#if isVegetarian}}<span class="vegetarian-badge">Veg</span>{{/if}}</h3>
+                            <p>{{description}}</p>
+                            <p class="price">${{price}}</p>
+                            <button class="add-to-cart-btn" onclick="addToCart('{{_id}}', '{{name}}', {{price}})">Add to Cart</button>
+                        </div>
+                    {{/each}}
+                </div>
+            </section>
+            {{/if}}
+            
+            <!-- Desserts Section -->
+            {{#if categorizedMenu.dessert.length}}
+            <section id="desserts">
+                <h2 class="category-heading">Desserts</h2>
+                <div class="menu-items">
+                    {{#each categorizedMenu.dessert}}
+                        <div class="menu-item {{#if isSpecial}}special-item{{/if}}">
+                            <h3>{{name}} {{#if isVegetarian}}<span class="vegetarian-badge">Veg</span>{{/if}}</h3>
+                            <p>{{description}}</p>
+                            <p class="price">${{price}}</p>
+                            <button class="add-to-cart-btn" onclick="addToCart('{{_id}}', '{{name}}', {{price}})">Add to Cart</button>
+                        </div>
+                    {{/each}}
+                </div>
+            </section>
+            {{/if}}
+            
+            <!-- Beverages Section -->
+            {{#if categorizedMenu.beverage.length}}
+            <section id="beverages">
+                <h2 class="category-heading">Beverages</h2>
+                <div class="menu-items">
+                    {{#each categorizedMenu.beverage}}
+                        <div class="menu-item {{#if isSpecial}}special-item{{/if}}">
+                            <h3>{{name}} {{#if isVegetarian}}<span class="vegetarian-badge">Veg</span>{{/if}}</h3>
+                            <p>{{description}}</p>
+                            <p class="price">${{price}}</p>
+                            <button class="add-to-cart-btn" onclick="addToCart('{{_id}}', '{{name}}', {{price}})">Add to Cart</button>
+                        </div>
+                    {{/each}}
+                </div>
+            </section>
+            {{/if}}
+        {{else}}
+            <div style="text-align: center; padding: 50px;">
+                <p style="color: white; font-size: 24px;">No menu items found. Please check back later!</p>
+            </div>
+        {{/if}}
+    </div>
+
+    <!-- Table Selection Popup -->
+    <div class="popup-overlay" id="tableSelectionPopup">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closeTablePopup()">&times;</span>
+            <div class="popup-title">Select Your Table</div>
+            <div class="table-selection">
+                <div class="table-grid" id="tableGrid">
+                    <!-- Table buttons will be generated here -->
+                </div>
+                <div class="custom-table-input">
+                    <input type="text" id="customTableInput" placeholder="Or enter table number" oninput="handleCustomTableInput(this.value)">
+                </div>
+            </div>
+            <button class="confirm-btn" id="confirmTableBtn" onclick="confirmTableSelection()" disabled>Confirm & Proceed</button>
+        </div>
+    </div>
+
+    <!-- JavaScript for cart functionality -->
+    <script>
+        // Initialize cart in localStorage if it doesn't exist
+        if (!localStorage.getItem('cart')) {
+            localStorage.setItem('cart', JSON.stringify([]));
+        }
+        
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            generateTableOptions();
+        });
+        
+        // Toggle cart dropdown
+        function toggleCart() {
+            const dropdown = document.getElementById('cartDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            
+            // Update cart items when opening
+            if (dropdown.style.display === 'block') {
+                updateCartDisplay();
+            }
+        }
+        
+        // Close cart when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.fa-shopping-cart') && 
+                !event.target.matches('.cart-counter') &&
+                !document.getElementById('cartDropdown').contains(event.target)) {
+                document.getElementById('cartDropdown').style.display = 'none';
+            }
+        });
+        
+        function addToCart(id, name, price) {
+            // Get current cart from localStorage
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            
+            // Check if item already exists in cart
+            const existingItemIndex = cart.findIndex(item => item.id === id);
+            
+            if (existingItemIndex !== -1) {
+                // Item exists, increment quantity
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                // Add new item to cart
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            // Save updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Show notification
+            showAddedToCartNotification(name);
+            
+            // Update cart counter and display
+            updateCartDisplay();
+        }
+        
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCounter = document.querySelector('.cart-counter');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // Get cart from localStorage
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Update counter
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCounter.textContent = totalItems;
+            
+            // If cartItems doesn't exist yet, return (page still loading)
+            if (!cartItems) return;
+            
+            // Clear current cart items
+            cartItems.innerHTML = '';
+            
+            // If cart is empty
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart-msg">Your cart is empty</div>';
+                cartTotal.innerHTML = '<span>Total:</span><span>$0.00</span>';
+                return;
+            }
+            
+            // Calculate total
+            let total = 0;
+            
+            // Add items to cart
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-quantity">
+                        <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                    </div>
+                    <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            // Update total
+            cartTotal.innerHTML = `<span>Total:</span><span>$${total.toFixed(2)}</span>`;
+        }
+        
+        // Update item quantity
+        function updateQuantity(index, change) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Update quantity
+            cart[index].quantity += change;
+            
+            // Remove item if quantity is 0 or less
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            
+            // Save cart
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update display
+            updateCartDisplay();
+        }
+        
+        function showAddedToCartNotification(itemName) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.textContent = `${itemName} added to cart!`;
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.backgroundColor = '#4caf50';
+            notification.style.color = 'white';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '5px';
+            notification.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+            notification.style.zIndex = '9999';
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Checkout function - Show table selection popup
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Close cart dropdown
+            document.getElementById('cartDropdown').style.display = 'none';
+            
+            // Show table selection popup
+            document.getElementById('tableSelectionPopup').style.display = 'flex';
+        }
+        
+        // Generate table options
+        function generateTableOptions() {
+            const tableGrid = document.getElementById('tableGrid');
+            
+            // Create 15 table options (adjust as needed)
+            for (let i = 1; i <= 15; i++) {
+                const tableButton = document.createElement('button');
+                tableButton.className = 'table-option';
+                tableButton.textContent = i;
+                tableButton.onclick = function() {
+                    selectTable(i);
+                };
+                
+                tableGrid.appendChild(tableButton);
+            }
+        }
+        
+        // Handle table selection
+        function selectTable(tableNumber) {
+            // Reset all table buttons
+            const tableButtons = document.querySelectorAll('.table-option');
+            tableButtons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            
+            // Select the clicked button
+            if (tableNumber <= 15) {
+                tableButtons[tableNumber - 1].classList.add('selected');
+            }
+            
+            // Clear custom input
+            document.getElementById('customTableInput').value = '';
+            
+            // Store selected table
+            localStorage.setItem('selectedTable', tableNumber);
+            
+            // Enable confirm button
+            document.getElementById('confirmTableBtn').disabled = false;
+        }
+        
+        // Handle custom table input
+        function handleCustomTableInput(value) {
+            // Reset all table buttons
+            const tableButtons = document.querySelectorAll('.table-option');
+            tableButtons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            
+            // If input is a valid number
+            const tableNumber = parseInt(value);
+            if (!isNaN(tableNumber) && tableNumber > 0) {
+                // Store selected table
+                localStorage.setItem('selectedTable', tableNumber);
+                
+                // Enable confirm button
+                document.getElementById('confirmTableBtn').disabled = false;
+            } else {
+                // Disable confirm button if input is invalid
+                document.getElementById('confirmTableBtn').disabled = true;
+                
+                // Remove stored table
+                localStorage.removeItem('selectedTable');
+            }
+        }
+        
+        // Close table selection popup
+        function closeTablePopup() {
+            document.getElementById('tableSelectionPopup').style.display = 'none';
+        }
+        
+        // Confirm table selection and proceed to checkout
+async function confirmTableSelection() {
+  const selectedTable = localStorage.getItem('selectedTable');
+  if (!selectedTable) {
+    alert('Please select a table first!');
+    return;
+  }
+
+  // Close the popup
+  closeTablePopup();
+
+  try {
+    // Get cart data
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    
+    // Compose the payload exactly as the server expects it
+    const orderInfo = {
+      cart: cart,
+      tableNumber: parseInt(selectedTable)
+    };
+
+    // Show loading indicator
+    const loadingNotification = document.createElement('div');
+    loadingNotification.textContent = "Processing your order...";
+    loadingNotification.style.position = 'fixed';
+    loadingNotification.style.top = '50%';
+    loadingNotification.style.left = '50%';
+    loadingNotification.style.transform = 'translate(-50%, -50%)';
+    loadingNotification.style.backgroundColor = '#333';
+    loadingNotification.style.color = 'white';
+    loadingNotification.style.padding = '20px';
+    loadingNotification.style.borderRadius = '5px';
+    loadingNotification.style.zIndex = '9999';
+    document.body.appendChild(loadingNotification);
+
+    const response = await fetch('/orders', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orderInfo),
+      credentials: 'same-origin'  // Important to include cookies for auth
+    });
+
+    // Remove loading indicator
+    document.body.removeChild(loadingNotification);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Server returned error status: ' + response.status);
+    }
+
+    const result = await response.json();
+
+    // Show success message
+    const successNotification = document.createElement('div');
+    successNotification.textContent = `Order #${result._id} placed successfully! Redirecting to profile...`;
+    successNotification.style.position = 'fixed';
+    successNotification.style.bottom = '20px';
+    successNotification.style.right = '20px';
+    successNotification.style.backgroundColor = '#4caf50';
+    successNotification.style.color = 'white';
+    successNotification.style.padding = '10px 20px';
+    successNotification.style.borderRadius = '5px';
+    successNotification.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+    successNotification.style.zIndex = '9999';
+    document.body.appendChild(successNotification);
+
+    // Clear cart
+    localStorage.removeItem('cart');
+    
+    // Update cart display
+    updateCartDisplay();
+    
+    // Wait a moment before redirecting
+    setTimeout(() => {
+      window.location.href = '/profile';
+    }, 2000);
+    
+  } catch (err) {
+    console.error("Order submission error:", err);
+    
+    // Show detailed error message
+    alert(`Could not place order: ${err.message}`);
+  }
+}
+
+    </script>
+</body>
+</html>
